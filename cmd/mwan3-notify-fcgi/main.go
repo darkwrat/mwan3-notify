@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	sockName      = flag.String("l", "/var/run/"+appName+"/fcgi.sock", "unix socket path for listening")
+	sockName      = flag.String("l", "/run/"+appName+"/fcgi.sock", "unix socket path for listening")
 	allowedSecret = flag.String("s", "", "only notifications with matching request secret are displayed")
 	appIcon       = flag.String("i", "", "app icon for displayed notification")
 )
