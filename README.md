@@ -1,6 +1,6 @@
 # mwan3-notify
 
-Get yourself a notification straight to laptop when some mwan3-managed network is down.
+Get yourself a notification straight to the laptop when some mwan3-managed network is down.
 
 ![single](https://github.com/darkwrat/mwan3-notify/raw/master/doc/1_single.png)
 ![multiple](https://github.com/darkwrat/mwan3-notify/raw/master/doc/2_multiple.png)
@@ -38,7 +38,7 @@ sudo systemd-tmpfiles --create
 make and install the binary:
 ```
 make
-cp bin/mwan3-notify-fcgi /usr/local/bin
+sudo cp bin/mwan3-notify-fcgi /usr/local/bin
 ```
 test by hand:
 ```
