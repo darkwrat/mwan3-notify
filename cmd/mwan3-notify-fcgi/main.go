@@ -38,7 +38,6 @@ func fcgiHandle(rw http.ResponseWriter, r *http.Request) {
 
 	title := fmt.Sprintf("mwan3: %s", r.Form.Get("hostname"))
 	message := fmt.Sprintf("'%s' (%s) '%s'", r.Form.Get("device"), r.Form.Get("interface"), r.Form.Get("action"))
-	//appIcon := "/usr/share/icons/gnome/32x32/emblems/emblem-new.png"
 
 	if err := beeep.Alert(title, message, *appIcon); err != nil {
 		log.Printf("[alert] unable to send %s <%s>: %s", title, message, err)
