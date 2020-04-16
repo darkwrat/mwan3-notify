@@ -27,7 +27,24 @@ nginx.conf:
             include fastcgi_params;
         }
 ```
-command line:
+install by hand:
 ```
-bin/mwan3-notify-fcgi -s xxx -l /var/run/mwan3-notify-fcgi/fcgi.sock -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+umask 022
+mkdir -p /var/run/mwan3-notify-fcgi
+chown xxx:nginx /var/run/mwan3-notify-fcgi
+cp bin/mwan3-notify-fcgi /usr/local/bin
 ```
+test in foreground:
+```
+/usr/local/bin/mwan3-notify-fcgi -s xxx -l /var/run/mwan3-notify-fcgi/fcgi.sock -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+```
+add to autostart ~/.config/autostart/mwan3-notify.desktop:
+```
+[Desktop Entry]
+Type=Application
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Exec=/usr/local/bin/mwan3-notify-fcgi -s xxx -l /var/run/mwan3-notify-fcgi/fcgi.sock -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+Comment=mwan3-notify
+```
+and forget about it.
