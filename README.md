@@ -5,7 +5,7 @@ Get yourself a notification straight to laptop when some mwan3-managed network i
 ![single](https://github.com/darkwrat/mwan3-notify/raw/master/doc/1_single.png)
 ![multiple](https://github.com/darkwrat/mwan3-notify/raw/master/doc/2_multiple.png)
 
-/etc/mwan3.user:
+/etc/mwan3.user (cgi-bin/luci/admin/network/mwan/notify):
 ```
 #!/bin/sh
 
@@ -20,23 +20,31 @@ SECRET="xxx"
 	"https://mwan3-notify-addr.a/mwan3-notify" \
 	-o /dev/null >/dev/null 2>&1
 ```
-nginx.conf:
+nginx.conf for 443 (and reload):
 ```
         location /mwan3-notify {
-            fastcgi_pass unix:/var/run/mwan3-notify-fcgi/fcgi.sock;
+            fastcgi_pass unix:/run/mwan3-notify-fcgi/fcgi.sock;
             include fastcgi_params;
         }
 ```
-install by hand:
+/etc/tmpfiles.d/mwan3-notify.conf:
 ```
-umask 022
-mkdir -p /var/run/mwan3-notify-fcgi
-chown xxx:nginx /var/run/mwan3-notify-fcgi
+d /run/mwan3-notify-fcgi 0755 <your-user> <your-group> -
+```
+create the sock dir:
+```
+sudo systemd-tmpfiles --create
+```
+make and install the binary:
+```
+make
 cp bin/mwan3-notify-fcgi /usr/local/bin
 ```
-test in foreground:
+test by hand:
 ```
-/usr/local/bin/mwan3-notify-fcgi -s xxx -l /var/run/mwan3-notify-fcgi/fcgi.sock -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+/usr/local/bin/mwan3-notify-fcgi -s xxx -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png &
+curl --insecure --data-urlencode "hostname=a" --data-urlencode "action=b" --data-urlencode "interface=c" --data-urlencode "device=d" --data-urlencode "secret=xxx" "https://127.0.0.1/mwan3-notify"
+fg
 ```
 add to autostart ~/.config/autostart/mwan3-notify.desktop:
 ```
@@ -44,7 +52,7 @@ add to autostart ~/.config/autostart/mwan3-notify.desktop:
 Type=Application
 Hidden=false
 X-GNOME-Autostart-enabled=true
-Exec=/usr/local/bin/mwan3-notify-fcgi -s xxx -l /var/run/mwan3-notify-fcgi/fcgi.sock -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+Exec=/usr/local/bin/mwan3-notify-fcgi -s xxx -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
 Comment=mwan3-notify
 ```
-and forget about it.
+relogin and forget about it.
