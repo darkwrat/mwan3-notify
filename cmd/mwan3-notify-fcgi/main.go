@@ -42,6 +42,7 @@ func fcgiHandle(rw http.ResponseWriter, r *http.Request) {
 	if err := beeep.Alert(title, message, *appIcon); err != nil {
 		log.Printf("[alert] unable to send %s <%s>: %s", title, message, err)
 		rw.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	rw.WriteHeader(http.StatusOK)
