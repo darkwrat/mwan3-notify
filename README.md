@@ -2,6 +2,9 @@
 
 Get yourself a notification straight to laptop when some mwan3-managed network is down.
 
+![single](https://github.com/darkwrat/mwan3-notify/raw/master/doc/1_single.png)
+![multiple](https://github.com/darkwrat/mwan3-notify/raw/master/doc/2_multiple.png)
+
 /etc/mwan3.user:
 ```
 #!/bin/sh
@@ -26,5 +29,5 @@ nginx.conf:
 ```
 command line:
 ```
-bin/mwan3-notify-fcgi -s xxx -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+bin/mwan3-notify-fcgi -s xxx -l /var/run/mwan3-notify-fcgi/fcgi.sock -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
 ```
