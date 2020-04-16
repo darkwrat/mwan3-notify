@@ -4,6 +4,8 @@ Get yourself a notification straight to laptop when some mwan3-managed network i
 
 /etc/mwan3.user:
 ```
+#!/bin/sh
+
 SECRET="xxx"
 
 /usr/bin/curl --insecure \
