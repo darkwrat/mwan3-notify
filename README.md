@@ -52,7 +52,7 @@ add to autostart ~/.config/autostart/mwan3-notify.desktop:
 Type=Application
 Hidden=false
 X-GNOME-Autostart-enabled=true
-Exec=/usr/local/bin/mwan3-notify-fcgi -s xxx -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
+Exec=/usr/local/bin/mwan3-notify-fcgi -u -q -s xxx -i /usr/share/icons/gnome/32x32/emblems/emblem-new.png
 Comment=mwan3-notify
 ```
 relogin and forget about it.
